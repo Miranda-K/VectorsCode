@@ -21,7 +21,7 @@ public class Line {
         Vector difference = v.subtract(start);
         // if difference v is colinear with direction then the point lies on the line
         return difference.isColinear(direction);
-
+    }
     public String toString() {
         return "l = " + start + " + t" + direction;
     }

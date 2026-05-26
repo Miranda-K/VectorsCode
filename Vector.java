@@ -42,10 +42,10 @@ public class Vector {
         double newY = this.z * other.x - this.x * other.z;
         double newZ = this.x * other.y - this.y * other.x;
         return new Vector(newX, newY, newZ);
-    } h
+    } 
 
     public double dotProduct(Vector other){
-        return (this.x * other.x + this.y * other.y + this.z * other.z)
+        return (this.x * other.x + this.y * other.y + this.z * other.z);
     
     }
 
