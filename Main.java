@@ -7,7 +7,7 @@ public class Main {
         boolean on = true;
         while(on){
             Scanner input = new Scanner(System.in);
-            System.out.println("Would you like to find the relationship between 2 lines (a), a line and a plane (b), or 2 planes (c)?:");
+            System.out.println("Would you like to find the relationship between 2 lines (a), a line and a plane (b), or 2 planes (c)? Enter (e) to exit:");
             String answer = input.nextLine();
             if(answer.equals("a")){
                 System.out.println("Enter line 1 START point (x y z):");
@@ -76,8 +76,12 @@ public class Main {
             else if(answer.equals("c")){
                 System.out.println("plane and plane");
             }
+            else if(answer.equals("e")){
+                System.out.println("Thanks for using this program!");
+                on = false;
+            }
             else{
-                System.out.println("Invalid input, please enter a lower case letter a, b, or c.");
+                System.out.println("Invalid input, please enter a lower case letter a, b, c, or e.");
             }
             
         }
