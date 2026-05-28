@@ -14,17 +14,14 @@ public class Main {
                 double x1 = input.nextDouble();
                 double y1 = input.nextDouble();
                 double z1 = input.nextDouble();
-
                 System.out.println("Enter line 1 DIRECTION vector (x y z):");
                 double dx1 = input.nextDouble();
                 double dy1 = input.nextDouble();
                 double dz1 = input.nextDouble();
-
                 System.out.println("Enter line 2 START point (x y z):");
                 double x2 = input.nextDouble();
                 double y2 = input.nextDouble();
                 double z2 = input.nextDouble();
-
                 System.out.println("Enter line 2 DIRECTION vector (x y z):");
                 double dx2 = input.nextDouble();
                 double dy2 = input.nextDouble();
@@ -44,23 +41,16 @@ public class Main {
                     } else {
                         System.out.println("The lines are parallel.");
                     }
-
                 }
                 
                 //if not colinear
                 else {
-
                     //solve start1 + s(direction1) = start2 + t(direction2)
                     double s;
                     //use x coordinate to first solve for s and then check if consistent wiht all variables
-                    s = (x2 - x1) / dx1;
-                    //calculate point with s 
-                    double intersectX = x1 + s * dx1;
-                    double intersectY = y1 + s * dy1;
-                    double intersectZ = z1 + s * dz1;
-
-                    //check if this point is on line 2 (s from line 1 is consistent with line2)
-                    Vector intersectionPoint = new Vector(intersectX, intersectY, intersectZ);
+                    s = (x2 - x1)/dx1;
+                    //check if this point is on line 2 (s from line 1 is consistent with line2) with calculated coordinates using s
+                    Vector intersectionPoint = new Vector(x1 + s*dx1, y1 + s*dy1, z1 + s*dz1);
                     if (line2.onLine(intersectionPoint)) {
                         System.out.println("The lines intersect.");
                         System.out.println("Intersection point: "
@@ -70,9 +60,46 @@ public class Main {
                     }
                 }
             }
-            else if(answer.equals("b")){
-                System.out.println("line and plane");
+            else if(answer.equals("b")){ //Line and Plane
+                System.out.println("Enter LINE start point (x y z):");
+                double x1 = input.nextDouble();
+                double y1 = input.nextDouble();
+                double z1 = input.nextDouble();
+                System.out.println("Enter LINE direction vector (x y z):");
+                double dx1 = input.nextDouble();
+                double dy1 = input.nextDouble();
+                double dz1 = input.nextDouble();
+                System.out.println("Enter plane A B C D variables:");
+                double a = input.nextDouble();
+                double b = input.nextDouble();
+                double c = input.nextDouble();
+                double d = input.nextDouble();
+
+                Line line = new Line(x1, y1, z1, dx1, dy1, dz1);
+                Plane plane = new Plane(a, b, c, d);
+
+                if(plane.normal.dotProduct(line.getDirection())==0){ //dot product is 0 --> parallel
+                    if(plane.onPlane(line.getStart())){//if the start point of the line is on teh plane --> line within plane
+                        System.out.println("The line is within the plane.");
+                    }
+                    else{
+                        System.out.println("The line and the plane are parallel and never touch.");
+                    }
+                }
+
+                else{ //skew and intersect, return point of intersection
+                    //x = a(start.x + t*direction.x)
+                    //at + bt+ct = -(astartx + bstarty + cstartz)
+                    //t = -(astartx + bstarty + cstartz)/(a+b+c)
+                    double t = -(a*x1 + b*y1 + c*z1)/(a+b+c);//CHECK WHAT IF 0
+                    Vector intersectionPoint = new Vector(x1 + t*dx1, y1 + t*dy1, z1 + t*dz1);
+                    System.out.println("The line and plane intersect.");
+                        System.out.println("Intersection point: "
+                            + intersectionPoint);
+                }
             }
+
+            
             else if(answer.equals("c")){
                 System.out.println("plane and plane");
             }
